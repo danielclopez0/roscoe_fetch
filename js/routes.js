@@ -4,5 +4,9 @@ angular.module('roscoeFetch',['ngRoute'])
 			.when('/test',{
 				templateUrl: 'templates/pages/test/index.html'
 			})
+			.when('/status',{
+				templateUrl: 'templates/pages/status/index.html',
+				controller: 'campaignAggregteController'
+			})
 			.otherwise({redirectTo: '/'});
 	}]);
