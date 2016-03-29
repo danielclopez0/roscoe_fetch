@@ -1,0 +1,24 @@
+Select a status below to see the top 10 sales days by campaign
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Status
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#/status/RUNNING">Running</a></li>
+    <li><a href="#/status/TERMINATED">Terminated</a></li>
+    <li><a href="#/status/ENDED">Ended</a></li>
+  </ul>
+</div>
+
+
+
+<ul>
+	<li ng-repeat="campaign in campaignAggregates">
+		Name: {{campaign.name}} <br>
+		Status: {{campaign.status}} <br>
+		Sales: {{campaign.salesTotal}} <br>
+		Spend: {{campaign.spendTotal}} <br>
+		Date: {{campaign._created_at}} <br>
+		<br>
+	</li>
+</ul>

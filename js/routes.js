@@ -8,5 +8,6 @@ angular.module('roscoeFetch',['ngRoute'])
 				templateUrl: '/templates/pages/status/index.html',
 				controller: 'campaignAggregteController'
 			})
+			.when('/status',{redirectTo: '/status/RUNNING'})
 			.otherwise({redirectTo: '/'});
 	}]);

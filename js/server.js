@@ -47,7 +47,7 @@ prompt.get(['username','password'], function(err, result){
     	app.get('/api/campaignAggregates/:status', function(req,res){
 
     		//use mongoose to get first 10 campaign aggregate docs
-    		CampaignAggregate.find({status: req.params.status}).limit(10).exec(function(err, campaignAggregates){
+    		CampaignAggregate.find({status: req.params.status}).sort({salesTotal: -1}).limit(10).exec(function(err, campaignAggregates){
     			if(err)
     				res.send(err)
 
