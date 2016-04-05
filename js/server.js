@@ -57,7 +57,7 @@ prompt.get(['username','password'], function(err, result){
 
 
 		app.get('*', function(req,res){
-			res.sendfile('/index.html');
+			res.sendFile('/index.html');
 		});
 
 	//start node server ============

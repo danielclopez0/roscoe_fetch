@@ -10,15 +10,16 @@ Select a status below to see the top 10 sales days by campaign
   </ul>
 </div>
 
+<br><br>
 
+<div class='col-md-3' ng-repeat="campaign in campaignAggregates">
+	<header class='w3-container w3-center w3-blue'><br> {{campaign.name}} <br></header>
+  <div class=' w3-card w3-hover-shadow w3-dark-grey'>
+  	Status: {{campaign.status}} <br>
+  	Sales: {{campaign.salesTotal}} <br>
+  	Spend: {{campaign.spendTotal}} <br>
+  	Date: {{campaign._created_at}} <br>
+  </div>
+  <br>
 
-<ul>
-	<li ng-repeat="campaign in campaignAggregates">
-		Name: {{campaign.name}} <br>
-		Status: {{campaign.status}} <br>
-		Sales: {{campaign.salesTotal}} <br>
-		Spend: {{campaign.spendTotal}} <br>
-		Date: {{campaign._created_at}} <br>
-		<br>
-	</li>
-</ul>
+</div>
