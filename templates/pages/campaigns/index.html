@@ -1,0 +1,23 @@
+<div class="container">
+  <div class='inline-block'>
+    Aggregate results by: <br>
+    <a href='#/campaigns/daily' type="button" class="btn navbar-btn label label-default" ng-class={'label-primary':frequency==='daily'}>Day</a>
+    <a href='#/campaigns/weekly' type="button" class="btn navbar-btn label label-default" ng-class={'label-primary':frequency==='weekly'}>Week</a>
+    <a href='#/campaigns/monthly' type="button" class="btn navbar-btn label label-default" ng-class={'label-primary':frequency==='monthly'}>Month</a>
+  </div>
+
+  <br><br>
+
+  <div class='col-md-3' ng-repeat="campaign in campaignAggregates">
+  	<header class='w3-container w3-center w3-blue'><br> {{campaign.name}} <br></header>
+    <div class=' w3-card w3-hover-shadow w3-dark-grey'>
+    	Status: {{campaign.status}} <br>
+    	Sales: {{campaign.salesTotal | currency:"$":0}} <br>
+    	Spend: {{campaign.spendTotal | currency:"$":0}} <br>
+    	End Date: {{campaign.forDateEndingOn[0] | date:"shortDate"}} <br>
+
+    </div>
+    <br>
+
+  </div>
+</div>

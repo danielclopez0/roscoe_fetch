@@ -7,13 +7,14 @@ angular.module('roscoeFetch',['ngRoute'])
 			})
 
 			//Campaigns
-				//Daily
-				.when('/campaigns/daily/status/:status',{
-					templateUrl: '/templates/pages/status/index.html',
-					controller: 'campaignAggregteController'
-				})
-				.when('/campaigns/daily/status',{
-					redirectTo: '/campaigns/daily/status/RUNNING'
-				})
+			.when('/campaigns/:frequency?',{
+				templateUrl: '/templates/pages/campaigns/index.html',
+				controller: 'campaignAggregateController'
+			})
+			.when('/campaigns/daily/status/:status',{
+				templateUrl: '/templates/pages/status/index.html',
+				controller: 'campaignAggregateController'
+			})
+
 			.otherwise({redirectTo: '/'});
 	}]);

@@ -5,28 +5,21 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+
 var config = require('../private/config');
+var mongooseDefs = require('../mongooseDefs');
 
 
 //config ====================
 mongoose.connect(config.mongo.url);
+    //mongoose definition variables
+    var campaignsDaily = mongooseDefs.models.campaigns.daily;
+    var campaignsWeekly = mongooseDefs.models.campaigns.weekly;
+    var campaignsMonthly = mongooseDefs.models.campaigns.monthly;
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-//CampaignAggregate schema
-var campaignAggregateSchema = mongoose.Schema({
-	spendTotal: Number,
-	_p_marketingChannel: String,
-	platformCampaignId: String,
-	name: String,
-	salesTotal: Number,
-	status: String,
-	_created_at: String
-});
-
-//define campaign model
-var daily = mongoose.model('CampaignAggregate',campaignAggregateSchema,'CampaignAggregate');
 
 app.use(express.static(path.join(__dirname, '/../')));
 app.use(morgan('dev'));                                         // log every request to the console
@@ -39,21 +32,33 @@ app.use(methodOverride());
 
 //routes =====================
 	//api -----------------------
-	//get all docs
-	app.get('/api/campaignAggregates/daily/:status', function(req,res){
+    app.get('/api/campaigns/:frequency', function(req,res){
+        var currentModel;
+        switch (req.params.frequency){
+            case "daily":
+            default:
+                currentModel = campaignsDaily;
+                break;
+            case "weekly":
+                currentModel = campaignsWeekly;
+                break;
+            case "monthly":
+                currentModel = campaignsMonthly;
+        }
 
-		//use mongoose to get first 10 campaign aggregate docs
-		daily.find({status: req.params.status}).sort({salesTotal: -1}).limit(10).exec(function(err, campaignAggregates){
-			if(err)
-				res.send(err)
+        //use mongoose to get first 10 campaign aggregate docs
+        currentModel.find({status:"RUNNING"}).sort({salesTotal: -1}).limit(10).exec(function(err, campaignAggregates){
+            if(err)
+                res.send(err)
 
-			res.json(campaignAggregates);
-		});
-	});
+            res.send(campaignAggregates);
+        });
+    });
+
 
 
 	app.get('*', function(req,res){
-		res.sendFdile('/index.html');
+		res.sendFile('/index.html');
 	});
 
 //start node server ============
