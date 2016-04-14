@@ -1,0 +1,14 @@
+
+
+<div class='container'>
+  <div class='inline-block'>
+    Aggregate results by: <br>
+    <a href='#/campaigns/daily/chart' type="button" class="btn navbar-btn label label-default" ng-class={'label-primary':frequency==='daily'}>Day</a>
+    <a href='#/campaigns/weekly/chart' type="button" class="btn navbar-btn label label-default" ng-class={'label-primary':frequency==='weekly'}>Week</a>
+    <a href='#/campaigns/monthly/chart' type="button" class="btn navbar-btn label label-default" ng-class={'label-primary':frequency==='monthly'}>Month</a>
+  </div>
+
+	 <div google-chart chart="chartObject" style="height:600px; width:100%;"></div>
+
+
+</div>

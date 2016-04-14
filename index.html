@@ -31,7 +31,7 @@
 			<div class="container">
 				<div class ="navbar-header">
 
-					<a href='/' class='navbar-brand'>Roscoe, fetch campaigns!</a>
+					<a href='#/' class='navbar-brand'>Roscoe, fetch campaigns!</a>
 					
 					<button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='.navbar-collapse'>
 						<span class='sr-only'>Toggle navigation</span>
@@ -39,12 +39,12 @@
 						<span class='icon-bar'></span>
 						<span class='icon-bar'></span></button>
 				</div>
-				<ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
-					<li><a href='#/campaigns/daily'>Campaigns</a></li>
+				<ul class='nav navbar-nav navbar-right collapse navbar-collapse' data-toggle='collapse' data-target='.navbar-collapse'>
+					<li><a href='#/campaigns/daily'>Campaign Tiles</a></li>
+					<li><a href='#/campaigns/daily/chart'>Campaign Charts</a></li>
 				</ul>
 			</div>
 		</div>
-
 
 
 		<div ng-view></div>

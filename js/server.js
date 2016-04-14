@@ -33,6 +33,8 @@ app.use(methodOverride());
 //routes =====================
 	//api -----------------------
     app.get('/api/campaigns/:frequency', function(req,res){
+        
+        //query the correct collection based on the frequency variable
         var currentModel;
         switch (req.params.frequency){
             case "daily":
@@ -58,6 +60,8 @@ app.use(methodOverride());
     });
 
     app.get('/api/campaigns/:frequency/chart', function(req,res){
+        
+        //query the correct collection based on the frequency variable
         var currentModel;
         switch (req.params.frequency){
             case "daily":
@@ -71,11 +75,17 @@ app.use(methodOverride());
                 currentModel = campaignsMonthly;
         }
 
-        var chartStartDate = new Date(2016,2,1);
 
+        //query params
+        var chartStartDate = new Date(2016,3,1);
+        var chartEndDate = new Date(2016,11,31);
+        var chartQuery = {
+            status:"RUNNING", 
+            $or: [{salesTotal: {"$gt":0}}, {spendTotal: {"$gt":0}}],
+            forDateEndingOn:{"$gte": chartStartDate, "$lte": chartEndDate}
+        };
 
-        //use mongoose to get running campaigns from this year
-        currentModel.find({status:"RUNNING", salesTotal: {"$gt":0},forDateEndingOn:{"$gte": chartStartDate}}).sort({forDateEndingOn: 1}).exec(function(err, campaignAggregates){
+        currentModel.find(chartQuery,'salesTotal spendTotal forDateEndingOn').sort({forDateEndingOn: 1}).exec(function(err, campaignAggregates){
             if(err)
                 res.send(err)
 

@@ -15,11 +15,13 @@ angular.module("roscoeFetch")
 			    var chartDate;
 			    var chartDateIndex;
 			    var chartSales;
+			    var chartSpend;
 
 			    for (var i = 0; i < data.length; i++) {
 			    	chartDate = data[i]['forDateEndingOn'][0].substring(0,10);
 			    	chartDateIndex = chartDateArray.indexOf(chartDate);
-			    	chartSales = data[i]['salesTotal'];
+			    	chartSales = Math.round(data[i]['salesTotal']);
+			    	chartSpend = Math.round(data[i]['spendTotal']);
 
 
 			    	if (chartDateIndex<0) {
@@ -27,11 +29,13 @@ angular.module("roscoeFetch")
 			    		$scope.chartArray.push({
 				    		c: [
 				    			{v: chartDate},
-				    			{v: chartSales}
+				    			{v: chartSales},
+				    			{v: chartSpend}
 				    		]
 				    	})
 			    	} else {
 				    	$scope.chartArray[chartDateIndex].c[1].v += chartSales;
+				    	$scope.chartArray[chartDateIndex].c[2].v += chartSpend;
 			    	}
 
 			    		
@@ -43,7 +47,8 @@ angular.module("roscoeFetch")
 			    $scope.chartObject.data = {
 			    	"cols": [
 			        	{id: "date", label: "Date", type: "string"},
-			        	{id: "sales", label: "Sales", type: "number"}
+			        	{id: "sales", label: "Sales", type: "number"},
+			        	{id: "spend", label: "Spend", type: "number"}
 			    	], 
 			    	"rows": $scope.chartArray
 			    };
