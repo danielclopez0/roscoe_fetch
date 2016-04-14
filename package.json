@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.1",
+    "angular-google-chart": "^0.1.0",
     "angular-route": "^1.5.1",
     "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",

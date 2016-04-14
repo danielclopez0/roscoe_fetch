@@ -46,8 +46,10 @@ app.use(methodOverride());
                 currentModel = campaignsMonthly;
         }
 
-        //use mongoose to get first 10 campaign aggregate docs
-        currentModel.find({status:"RUNNING"}).sort({salesTotal: -1}).limit(10).exec(function(err, campaignAggregates){
+        var startDate = new Date(2016,3,1);
+
+        //use mongoose to get running campaigns from this year
+        currentModel.find({status:"RUNNING",forDateEndingOn:{"$gte": startDate}}).sort({salesTotal: -1}).exec(function(err, campaignAggregates){
             if(err)
                 res.send(err)
 
@@ -55,6 +57,31 @@ app.use(methodOverride());
         });
     });
 
+    app.get('/api/campaigns/:frequency/chart', function(req,res){
+        var currentModel;
+        switch (req.params.frequency){
+            case "daily":
+            default:
+                currentModel = campaignsDaily;
+                break;
+            case "weekly":
+                currentModel = campaignsWeekly;
+                break;
+            case "monthly":
+                currentModel = campaignsMonthly;
+        }
+
+        var chartStartDate = new Date(2016,2,1);
+
+
+        //use mongoose to get running campaigns from this year
+        currentModel.find({status:"RUNNING", salesTotal: {"$gt":0},forDateEndingOn:{"$gte": chartStartDate}}).sort({forDateEndingOn: 1}).exec(function(err, campaignAggregates){
+            if(err)
+                res.send(err)
+
+            res.send(campaignAggregates);
+        });
+    });
 
 
 	app.get('*', function(req,res){

@@ -1,4 +1,4 @@
-angular.module('roscoeFetch',['ngRoute'])
+angular.module('roscoeFetch',['ngRoute','googlechart'])
 	.config(['$routeProvider',function($routeProvider){
 		$routeProvider
 			//Test page
@@ -7,14 +7,15 @@ angular.module('roscoeFetch',['ngRoute'])
 			})
 
 			//Campaigns
-			.when('/campaigns/:frequency?',{
+			.when('/campaigns/:frequency/chart/',{
+				templateUrl: '/templates/pages/campaigns/chart.html',
+				controller: 'campaignChartController'
+			})
+			.when('/campaigns/:frequency',{
 				templateUrl: '/templates/pages/campaigns/index.html',
 				controller: 'campaignAggregateController'
 			})
-			.when('/campaigns/daily/status/:status',{
-				templateUrl: '/templates/pages/status/index.html',
-				controller: 'campaignAggregateController'
-			})
+
 
 			.otherwise({redirectTo: '/'});
 	}]);
